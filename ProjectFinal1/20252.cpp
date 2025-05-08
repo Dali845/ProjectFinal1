@@ -424,7 +424,7 @@ int main() {
 	myData();
 	glEnable(GL_DEPTH_TEST);
 
-	
+
 
 	// build and compile shaders
 	// -------------------------
@@ -432,7 +432,7 @@ int main() {
 	Shader staticShader("Shaders/shader_Lights.vs", "Shaders/shader_Lights_mod.fs");	//To use with static models
 	Shader skyboxShader("Shaders/skybox.vs", "Shaders/skybox.fs");	//To use with skybox
 	Shader animShader("Shaders/anim.vs", "Shaders/anim.fs");	//To use with animated models 
-	
+
 	vector<std::string> faces{
 		"resources/skybox/right.jpg",
 		"resources/skybox/left.jpg",
@@ -457,7 +457,37 @@ int main() {
 	Model casaVieja("resources/objects/casa/OldHouse.obj");
 	//Model cubo("resources/objects/cubo/cube02.obj");
 	Model casaDoll("resources/objects/casa/DollHouse.obj");
+	Model laptop("resources/objects/Obj1/iMAC.obj");
+	Model picosd0("resources/objects/Dragon0/picosd0.obj");
+	Model carad0("resources/objects/Dragon0/cabezad0.obj");
+	Model patasd0("resources/objects/Dragon0/patasd0.obj");
+	Model torsod0("resources/objects/Dragon0/torsod0.obj");
 
+	Model aladerd1("resources/objects/Dragon1/aladerd1.obj");
+	Model alaizqd1("resources/objects/Dragon1/alaizqd1.obj");
+	Model bocad1("resources/objects/Dragon1/bocad1.obj");
+	Model dientesd1("resources/objects/Dragon1/dientesd1.obj");
+	Model garrasd1("resources/objects/Dragon1/garrasd1.obj");
+	Model lenguad1("resources/objects/Dragon1/lenguad1.obj");
+	Model ojosd1("resources/objects/Dragon1/ojosd1.obj");
+	Model patad1("resources/objects/Dragon1/patad1.obj");
+	Model torsod1("resources/objects/Dragon1/torsod1.obj");
+	Model garrasd11("resources/objects/Dragon1/garrasd11.obj");
+
+	Model aladerd2("resources/objects/Dragon2/aladerd2.obj");
+	Model alaizqd2("resources/objects/Dragon2/alaizqderd2.obj");
+	Model bocad2("resources/objects/Dragon2/bocad2.obj");
+	Model dientesd2("resources/objects/Dragon2/dientesd2.obj");
+	Model garrascomd2("resources/objects/Dragon2/garrascomd2.obj");
+	Model garrasd2("resources/objects/Dragon2/garrasd2.obj");
+	Model lenguad2("resources/objects/Dragon2/lenguad2.obj");
+	Model ojosd2("resources/objects/Dragon2/ojosd2.obj");
+	Model pataderd2("resources/objects/Dragon2/pataderd2.obj");
+	Model torsod2("resources/objects/Dragon2/torsod2.obj");
+
+	//Model pataizqd0("resources/objects/Dragon0/Pataizq0.obj");
+	//Model pataderad0("resources/objects/Dragon0/Pataderad0.obj");
+	//Model pataizqad0("resources/objects/Dragon0/PAtaizqa0.obj");
 
 	ModelAnim animacionPersonaje("resources/objects/Personaje1/Arm.dae");
 	animacionPersonaje.initShaders(animShader.ID);
@@ -478,6 +508,7 @@ int main() {
 	glm::mat4 modelOp = glm::mat4(1.0f);		// initialize Matrix, Use this matrix for individual models
 	glm::mat4 viewOp = glm::mat4(1.0f);		//Use this matrix for ALL models
 	glm::mat4 projectionOp = glm::mat4(1.0f);	//This matrix is for Projection
+	glm::mat4 cuerpod0 = glm::mat4(1.0f);
 
 	// render loop
 	// -----------
@@ -647,11 +678,188 @@ int main() {
 		staticShader.setMat4("model", modelOp);
 		//piso.Draw(staticShader);
 
-		modelOp = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, -70.0f));
-		modelOp = glm::scale(modelOp, glm::vec3(5.0f));
+		//modelOp = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, -70.0f));
+		//modelOp = glm::scale(modelOp, glm::vec3(5.0f));
+		//staticShader.setMat4("model", modelOp);
+		//staticShader.setVec3("dirLight.specular", glm::vec3(0.0f, 0.0f, 0.0f));
+		//casaVieja.Draw(staticShader);
+
+		//---------------------------------------------------------------------------------------------------------------------------
+		//Modelos agregados para la estructuracion del proyecto
+
+		modelOp = glm::translate(glm::mat4(1.0f), glm::vec3(170.0f, 0.0f, -20.0f));
+		modelOp = glm::scale(modelOp, glm::vec3(0.13f));
 		staticShader.setMat4("model", modelOp);
-		staticShader.setVec3("dirLight.specular", glm::vec3(0.0f, 0.0f, 0.0f));
-		casaVieja.Draw(staticShader);
+		//staticShader.setVec3("dirLight.specular", glm::vec3(0.0f, 0.0f, 0.0f));
+		laptop.Draw(staticShader);
+
+
+		//---------------------------------------------------------------------------------------------------------------------------
+		//Modelos de personajes secundario: dragon0 
+		//---------------------------------------------------------------------------------------------------------------------------
+		modelOp = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 29.0f, 25.8f));  //50 s 57 s 115 s
+		modelOp = glm::scale(modelOp, glm::vec3(0.4f));
+		staticShader.setMat4("model", modelOp);
+		picosd0.Draw(staticShader);
+
+		modelOp = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 24.1f, 0.0f)); //Al parecer si funcionan como x,y,z?  50 s   39 s  20 s
+		modelOp = glm::scale(modelOp, glm::vec3(0.4f));
+		staticShader.setMat4("model", modelOp);
+		carad0.Draw(staticShader);
+
+		modelOp = glm::translate(cuerpod0, glm::vec3(0.0f, -1.61f, -20.46f));  //50 s  39.7s  58.2 s
+		modelOp = glm::scale(modelOp, glm::vec3(0.4f));
+		staticShader.setMat4("model", modelOp);
+		patasd0.Draw(staticShader);
+
+		cuerpod0 = modelOp = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 25.3f, 28.8f)); //50 s 45s  127s
+		modelOp = glm::scale(modelOp, glm::vec3(0.4f));
+		staticShader.setMat4("model", modelOp);
+		torsod0.Draw(staticShader);
+
+
+		//---------------------------------------------------------------------------------------------------------------------------
+        //Modelos de personajes secundario: dragon1 
+        //---------------------------------------------------------------------------------------------------------------------------
+		//Model aladerd1("resources/objects/Dragon1/aladerd1.obj");
+		//Model alaizqd1("resources/objects/Dragon1/alaizqd1.obj");
+		//Model bocad1("resources/objects/Dragon1/bocad1.obj");
+		//Model dientesd1("resources/objects/Dragon1/dientesd1.obj");
+		//Model garrasd1("resources/objects/Dragon1/garrasd1.obj");
+		//Model lenguad1("resources/objects/Dragon1/lenguad1.obj");
+		//Model ojosd1("resources/objects/Dragon1/ojosd1.obj");
+		//Model patad1("resources/objects/Dragon1/patad1.obj");
+		//Model torsod1("resources/objects/Dragon1/torsod1.obj");
+
+		modelOp = glm::translate(glm::mat4(1.0f), glm::vec3(40.0f, 10.0f, 40.0f));
+		modelOp = glm::scale(modelOp, glm::vec3(20.0f));
+		staticShader.setMat4("model", modelOp);
+		patad1.Draw(staticShader);
+
+		modelOp = glm::translate(glm::mat4(1.0f), glm::vec3(41.0f, 10.0f, 41.0f));
+		modelOp = glm::scale(modelOp, glm::vec3(20.0f));
+		staticShader.setMat4("model", modelOp);
+		aladerd1.Draw(staticShader);
+
+		modelOp = glm::translate(glm::mat4(1.0f), glm::vec3(43.0f, 10.0f, 43.0f));
+		modelOp = glm::scale(modelOp, glm::vec3(20.0f));
+		staticShader.setMat4("model", modelOp);
+		alaizqd1.Draw(staticShader);
+
+		modelOp = glm::translate(glm::mat4(1.0f), glm::vec3(45.0f, 10.0f, 45.0f));
+		modelOp = glm::scale(modelOp, glm::vec3(20.0f));
+		staticShader.setMat4("model", modelOp);
+		torsod1.Draw(staticShader);
+
+		modelOp = glm::translate(glm::mat4(1.0f), glm::vec3(40.0f, 20.0f, 45.0f));
+		modelOp = glm::scale(modelOp, glm::vec3(20.0f));
+		staticShader.setMat4("model", modelOp);
+		bocad1.Draw(staticShader);
+
+		modelOp = glm::translate(glm::mat4(1.0f), glm::vec3(40.0f, 25.0f, 45.0f));
+		modelOp = glm::scale(modelOp, glm::vec3(20.0f));
+		staticShader.setMat4("model", modelOp);
+		dientesd1.Draw(staticShader);
+
+		modelOp = glm::translate(glm::mat4(1.0f), glm::vec3(40.0f, 27.0f, 45.0f));
+		modelOp = glm::scale(modelOp, glm::vec3(20.0f));
+		staticShader.setMat4("model", modelOp);
+		garrasd1.Draw(staticShader);
+
+		modelOp = glm::translate(glm::mat4(1.0f), glm::vec3(40.0f, 30.0f, 45.0f));
+		modelOp = glm::scale(modelOp, glm::vec3(20.0f));
+		staticShader.setMat4("model", modelOp);
+		lenguad1.Draw(staticShader);
+
+		modelOp = glm::translate(glm::mat4(1.0f), glm::vec3(40.0f, 33.0f, 45.0f));
+		modelOp = glm::scale(modelOp, glm::vec3(20.0f));
+		staticShader.setMat4("model", modelOp);
+		ojosd1.Draw(staticShader);
+
+		modelOp = glm::translate(glm::mat4(1.0f), glm::vec3(40.0f, 36.0f, 45.0f));
+		modelOp = glm::scale(modelOp, glm::vec3(20.0f));
+		staticShader.setMat4("model", modelOp);
+		garrasd11.Draw(staticShader);
+
+
+		//---------------------------------------------------------------------------------------------------------------------------
+		//Modelos de personajes secundario: dragon2 
+		//---------------------------------------------------------------------------------------------------------------------------
+		//Model aladerd2("resources/objects/Dragon2/aladerd2.obj");
+		//Model alaizqd2("resources/objects/Dragon2/alaizqderd2.obj");
+		//Model bocad2("resources/objects/Dragon2/bocad2.obj");
+		//Model dientesd2("resources/objects/Dragon2/dientesd2.obj");
+		//Model garrascomd2("resources/objects/Dragon2/garrascomd2.obj");
+		//Model garrasd2("resources/objects/Dragon2/garrasd2.obj");
+		//Model lenguad2("resources/objects/Dragon2/lenguad2.obj");
+		//Model ojosd2("resources/objects/Dragon2/ojosd2.obj");
+		//Model pataderd2("resources/objects/Dragon2/pataderd2.obj");
+		//Model torsod2("resources/objects/Dragon2/torsod2.obj");
+
+		modelOp = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 10.0f, 40.0f));
+		modelOp = glm::scale(modelOp, glm::vec3(20.0f));
+		staticShader.setMat4("model", modelOp);
+		aladerd2.Draw(staticShader);
+
+		modelOp = glm::translate(glm::mat4(1.0f), glm::vec3(1.0f, 10.0f, 41.0f));
+		modelOp = glm::scale(modelOp, glm::vec3(20.0f));
+		staticShader.setMat4("model", modelOp);
+		alaizqd2.Draw(staticShader);
+
+		modelOp = glm::translate(glm::mat4(1.0f), glm::vec3(3.0f, 10.0f, 43.0f));
+		modelOp = glm::scale(modelOp, glm::vec3(20.0f));
+		staticShader.setMat4("model", modelOp);
+		bocad2.Draw(staticShader);
+
+		modelOp = glm::translate(glm::mat4(1.0f), glm::vec3(5.0f, 10.0f, 45.0f));
+		modelOp = glm::scale(modelOp, glm::vec3(20.0f));
+		staticShader.setMat4("model", modelOp);
+		dientesd2.Draw(staticShader);
+
+		modelOp = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 20.0f, 45.0f));
+		modelOp = glm::scale(modelOp, glm::vec3(20.0f));
+		staticShader.setMat4("model", modelOp);
+		garrascomd2.Draw(staticShader);
+
+		modelOp = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 25.0f, 45.0f));
+		modelOp = glm::scale(modelOp, glm::vec3(20.0f));
+		staticShader.setMat4("model", modelOp);
+		garrasd2.Draw(staticShader);
+
+		modelOp = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 27.0f, 45.0f));
+		modelOp = glm::scale(modelOp, glm::vec3(20.0f));
+		staticShader.setMat4("model", modelOp);
+		lenguad2.Draw(staticShader);
+
+		modelOp = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 30.0f, 45.0f));
+		modelOp = glm::scale(modelOp, glm::vec3(20.0f));
+		staticShader.setMat4("model", modelOp);
+		ojosd2.Draw(staticShader);
+
+		modelOp = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 33.0f, 45.0f));
+		modelOp = glm::scale(modelOp, glm::vec3(20.0f));
+		staticShader.setMat4("model", modelOp);
+		pataderd2.Draw(staticShader);
+
+		modelOp = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 36.0f, 45.0f));
+		modelOp = glm::scale(modelOp, glm::vec3(20.0f));
+		staticShader.setMat4("model", modelOp);
+		torsod2.Draw(staticShader);
+
+	/*	modelOp = glm::translate(glm::mat4(1.0f), glm::vec3(6.5f, 36.47f, 122.649f));
+		modelOp = glm::scale(modelOp, glm::vec3(0.4f));
+		staticShader.setMat4("model", modelOp);
+		pataizqd0.Draw(staticShader);
+
+		modelOp = glm::translate(glm::mat4(1.0f), glm::vec3(4.0f, 35.72f, -92.39f));
+		modelOp = glm::scale(modelOp, glm::vec3(0.4f));
+		staticShader.setMat4("model", modelOp);
+		pataderad0.Draw(staticShader);
+
+		modelOp = glm::translate(glm::mat4(1.0f), glm::vec3(61.7f, 65.3f, 69.2f));
+		modelOp = glm::scale(modelOp, glm::vec3(0.4f));
+		staticShader.setMat4("model", modelOp);
+		pataizqad0.Draw(staticShader);*/
 
 		// -------------------------------------------------------------------------------------------------------------------------
 		// Carro
