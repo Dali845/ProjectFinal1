@@ -18,8 +18,11 @@
 #include <stb_image.h>					//Texture
 
 #define SDL_MAIN_HANDLED
-#include <SDL3/SDL.h>
-
+#include <SDL2/SDL.h>
+//#include <SDL2/SDL_opengl.h>
+#include <SDL2/SDL_mixer.h>
+//#include <SDL3/SDL.h>
+//#include <SDL3/SDL_mixer.h>
 #include <shader_m.h>
 #include <camera.h>
 #include <modelAnim.h>
@@ -49,6 +52,9 @@ float MovementSpeed = 0.1f;
 GLfloat lastX = SCR_WIDTH / 2.0f,
 		lastY = SCR_HEIGHT / 2.0f;
 bool firstMouse = true;
+
+//Audio
+Mix_Music* gBackgroundMusic = nullptr;
 
 //Timing
 const int FPS = 60;
@@ -212,6 +218,85 @@ void LoadTextures()
 }
 
 
+//bool initAudio() {
+//	if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0) {
+//		std::cerr <<"SDL_mixer no pudo inicializarse! SDL_mixer ERROR: " << Mix_GetError() << std::endl;
+//		return false;
+//	}
+//	return true;
+//}
+//
+//bool loadAndPlayMusic(const std::string& musicPath) {
+//	// Cargar música
+//	gBackgroundMusic = Mix_LoadMUS(musicPath.c_str());
+//	if (gBackgroundMusic == nullptr) {
+//		std::cerr << "No se pudo cargar la música de fondo! SDL_mixer Error: " << Mix_GetError() << std::endl;
+//		return false;
+//	}
+//
+//	// Reproducir música en bucle infinito (-1)
+//	if (Mix_PlayMusic(gBackgroundMusic, -1) == -1) {
+//		std::cerr << "No se pudo reproducir la música de fondo! SDL_mixer Error: " << Mix_GetError() << std::endl;
+//		return false;
+//	}
+//
+//	return true;
+//}
+//
+//// Función para manejar controles básicos de música (puedes llamarla en tu bucle de eventos)
+//void handleMusicControls(SDL_Event& e) {
+//	if (e.type == SDL_KEYDOWN) {
+//		switch (e.key.keysym.sym) {
+//		case SDLK_UP:
+//			// Aumentar volumen
+//		{
+//			int volume = Mix_VolumeMusic(-1) + 8;
+//			if (volume > MIX_MAX_VOLUME) volume = MIX_MAX_VOLUME;
+//			Mix_VolumeMusic(volume);
+//		}
+//		break;
+//
+//		case SDLK_DOWN:
+//			// Disminuir volumen
+//		{
+//			int volume = Mix_VolumeMusic(-1) - 8;
+//			if (volume < 0) volume = 0;
+//			Mix_VolumeMusic(volume);
+//		}
+//		break;
+//
+//		case SDLK_p:
+//			// Pausar/reanudar música
+//			if (Mix_PausedMusic()) {
+//				Mix_ResumeMusic();
+//			}
+//			else {
+//				Mix_PauseMusic();
+//			}
+//			break;
+//
+//		case SDLK_m:
+//			// Silenciar/activar música
+//			static int savedVolume = MIX_MAX_VOLUME;
+//			if (Mix_VolumeMusic(-1) > 0) {
+//				savedVolume = Mix_VolumeMusic(-1);
+//				Mix_VolumeMusic(0);
+//			}
+//			else {
+//				Mix_VolumeMusic(savedVolume);
+//			}
+//			break;
+//		}
+//	}
+//}
+//
+//// Función para liberar recursos de música (llámala antes de SDL_Quit)
+//void closeAudio() {
+//	// Liberar recursos de música
+//	Mix_FreeMusic(gBackgroundMusic);
+//	gBackgroundMusic = nullptr;
+//	Mix_CloseAudio();
+//}
 
 void animate(void) 
 {
@@ -388,6 +473,11 @@ int main() {
 	// glfw: initialize and configure
 	glfwInit();
 
+	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) < 0) {
+		std::cerr << "SDL no pudo inicializarse!" << std::endl;
+		return -1;
+	}
+
 	// glfw window creation
 	monitors = glfwGetPrimaryMonitor();
 	getResolution();
@@ -416,6 +506,11 @@ int main() {
 		return -1;
 	}
 
+
+
+
+
+
 	// configure global opengl state
 	// -----------------------------
 	//Mis funciones
@@ -425,6 +520,17 @@ int main() {
 	glEnable(GL_DEPTH_TEST);
 
 
+
+	//if (!initAudio()) {
+	//	std::cerr << "No se pudo inicializar el audio. El programa continuará sin sonido." << std::endl;
+	//	// El programa puede continuar sin audio
+	//}
+	//else {
+	//	// Cargar y reproducir música de fondo (reemplaza con la ruta a tu archivo de música)
+	//	if (!loadAndPlayMusic("audio/Test Drive (From How To Train Your Dragon Music From The Motion Picture)-yt.savetube.me.mp3")) {
+	//		std::cerr << "No se pudo cargar la música. El programa continuará sin música de fondo." << std::endl;
+	//	}
+	//}
 
 	// build and compile shaders
 	// -------------------------
@@ -486,7 +592,7 @@ int main() {
 	Model torsod2("resources/objects/Dragon2/torsod2.obj");
 
 	Model salon1("resources/objects/salongrafica/salongrafica.obj");
-	Model salon1a("resources/objects/salongrafica/sillasmesas.obj");
+	//Model salon1a("resources/objects/salongrafica/sillasmesas.obj");
 
 	//Model pataizqd0("resources/objects/Dragon0/Pataizq0.obj");
 	//Model pataderad0("resources/objects/Dragon0/Pataderad0.obj");
@@ -896,7 +1002,7 @@ int main() {
 		modelOp = glm::translate(tmp, glm::vec3(5.5f, 8.5f, 10.5f));
 		modelOp = glm::scale(modelOp, glm::vec3(0.1f, 0.1f, 0.1f));
 		staticShader.setMat4("model", modelOp);
-		salon1a.Draw(staticShader);	//Izq trase
+		salon1.Draw(staticShader);	//Izq trase
 		// -------------------------------------------------------------------------------------------------------------------------
 		// Personaje
 		// -------------------------------------------------------------------------------------------------------------------------
@@ -990,6 +1096,10 @@ int main() {
 	// ------------------------------------------------------------------
 	glDeleteVertexArrays(2, VAO);
 	glDeleteBuffers(2, VBO);
+	//Mix_FreeMusic(backgroundMusic);
+	//Mix_FreeChunk(soundEffect);
+	//Mix_CloseAudio();
+	//SDL_QuitSubSystem(SDL_INIT_AUDIO);
 	//skybox.Terminate();
 	glfwTerminate();
 	return 0;
@@ -1067,6 +1177,45 @@ void my_input(GLFWwindow* window, int key, int scancode, int action, int mode)
 		}
 	}
 
+	//if (key == GLFW_KEY_M && action == GLFW_PRESS) {
+	//	if (Mix_PlayingMusic()) {
+	//		if (Mix_PausedMusic()) {
+	//			Mix_ResumeMusic();
+	//		}
+	//		else {
+	//			Mix_PauseMusic();
+	//		}
+	//	}
+	//}
+
+	//if (key == GLFW_KEY_N && action == GLFW_PRESS) {
+	//	Mix_HaltMusic();
+	//	isMusicPlaying = false;
+	//}
+
+	//if (key == GLFW_KEY_O && action == GLFW_PRESS) {
+	//	playSoundEffect();
+	//}
+
+	//bool quit = false;
+	//SDL_Event e;
+
+	//while (!quit) {
+	//	// Manejo de eventos
+	//	while (SDL_PollEvent(&e)) {
+	//		if (e.type == SDL_QUIT) {
+	//			quit = true;
+	//		}
+
+	//		// Añade esto para controlar la música (opcional)
+	//		handleMusicControls(e);
+	//	}
+
+	//}
+
+	//// Antes de salir, libera los recursos de audio (añade esto antes de SDL_Quit)
+	//closeAudio();
+	//return 0;
 }
 
 // glfw: whenever the window size changed (by OS or user resize) this callback function executes
