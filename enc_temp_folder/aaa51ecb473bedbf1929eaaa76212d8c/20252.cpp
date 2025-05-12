@@ -674,7 +674,7 @@ int main() {
 		modelOp = glm::translate(glm::mat4(1.0f), glm::vec3(250.0f, 0.0f, -10.0f));
 		modelOp = glm::rotate(modelOp, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 		staticShader.setMat4("model", modelOp);
-		//casaDoll.Draw(staticShader);
+		casaDoll.Draw(staticShader);
 
 		modelOp = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, -1.75f, 0.0f));
 		modelOp = glm::scale(modelOp, glm::vec3(0.2f));
@@ -690,6 +690,11 @@ int main() {
 		//---------------------------------------------------------------------------------------------------------------------------
 		//Modelos agregados para la estructuracion del proyecto
 
+		modelOp = glm::translate(glm::mat4(1.0f), glm::vec3(170.0f, 0.0f, -20.0f));
+		modelOp = glm::scale(modelOp, glm::vec3(0.13f));
+		staticShader.setMat4("model", modelOp);
+		//staticShader.setVec3("dirLight.specular", glm::vec3(0.0f, 0.0f, 0.0f));
+		laptop.Draw(staticShader);
 
 
 		//---------------------------------------------------------------------------------------------------------------------------
@@ -868,29 +873,29 @@ int main() {
 		modelOp = glm::scale(modelOp, glm::vec3(0.1f, 0.1f, 0.1f));
 		staticShader.setVec3("dirLight.specular", glm::vec3(0.6f, 0.6f, 0.6f));
 		staticShader.setMat4("model", modelOp);
-		//carro.Draw(staticShader);
+		carro.Draw(staticShader);
 
 		modelOp = glm::translate(tmp, glm::vec3(8.5f, 2.5f, 12.9f));
 		modelOp = glm::scale(modelOp, glm::vec3(0.1f, 0.1f, 0.1f));
 		staticShader.setMat4("model", modelOp);
-		//llanta.Draw(staticShader);	//Izq delantera
+		llanta.Draw(staticShader);	//Izq delantera
 
 		modelOp = glm::translate(tmp, glm::vec3(-8.5f, 2.5f, 12.9f));
 		modelOp = glm::scale(modelOp, glm::vec3(0.1f, 0.1f, 0.1f));
 		modelOp = glm::rotate(modelOp, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 		staticShader.setMat4("model", modelOp);
-		//llanta.Draw(staticShader);	//Der delantera
+		llanta.Draw(staticShader);	//Der delantera
 
 		modelOp = glm::translate(tmp, glm::vec3(-8.5f, 2.5f, -14.5f));
 		modelOp = glm::scale(modelOp, glm::vec3(0.1f, 0.1f, 0.1f));
 		modelOp = glm::rotate(modelOp, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 		staticShader.setMat4("model", modelOp);
-		//llanta.Draw(staticShader);	//Der trasera
+		llanta.Draw(staticShader);	//Der trasera
 
 		modelOp = glm::translate(tmp, glm::vec3(8.5f, 2.5f, -14.5f));
 		modelOp = glm::scale(modelOp, glm::vec3(0.1f, 0.1f, 0.1f));
 		staticShader.setMat4("model", modelOp);
-		//llanta.Draw(staticShader);	//Izq trase
+		llanta.Draw(staticShader);	//Izq trase
 
 
 		modelOp = glm::translate(tmp, glm::vec3(5.5f, 8.5f, 10.5f));
