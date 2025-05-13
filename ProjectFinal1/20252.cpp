@@ -592,7 +592,7 @@ int main() {
 	Model torsod2("resources/objects/Dragon2/torsod2.obj");
 
 	Model salon1("resources/objects/salongrafica/salongrafica.obj");
-	//Model salon2("resources/objects/saloncisco/saloncisco.obj");
+	Model salon2("resources/objects/saloncisco/saloncisco2.obj");
 	//Model salon1a("resources/objects/salongrafica/sillasmesas.obj");
 
 	//Model pataizqd0("resources/objects/Dragon0/Pataizq0.obj");
@@ -1008,7 +1008,7 @@ int main() {
 		modelOp = glm::translate(tmp, glm::vec3(5.5f, 8.5f, 20.5f));
 		modelOp = glm::scale(modelOp, glm::vec3(0.1f, 0.1f, 0.1f));
 		staticShader.setMat4("model", modelOp);
-		//salon2.Draw(staticShader);
+		salon2.Draw(staticShader);
 		// -------------------------------------------------------------------------------------------------------------------------
 		// Personaje
 		// -------------------------------------------------------------------------------------------------------------------------
